@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EDWINs CALe</title>
+    <style>
+ .Allfather{
+ border-radius:2px;
+   height:60vh;
+  margin:0;
+ /*  background-color:green;*/
+   font-family:arial;
+   font-weight:1000;
+   color:black;
+   font-size: 5vw;
+   overflow:hidden;
+}
+     .container{
+       height:60%;
+     }
+       
+    .op{display:flex;
+      justify-content:center;
+      align-items:center;
+        height:20%;
+        width:20%;
+        font-size:5vw;
+        box-sizing:border-box;
+        border-radius:2px;
+        border:0.5px green solid;
+        background-color:#aafff4;
+        float:left;}
+
+  .empty{
+ overflow:scroll;}
+ 
+ #equal{font-weight:auto;
+ color:#3c2bff}
+
+  #ans{background-color:yellow;
+  font-size:5vw; 
+  border-radius:5px;
+  min-height:10%;
+   overflow: hidden;
+   margin-bottom:0.3rem;
+   display:flex;
+   justify-content:center;
+   align-items:center;}
+  
+  .different{
+  border-radius:2px;
+   min-height:15%;
+   color: white;
+    background-color:#c440ff;}
+  
+ #times, #divide, #plus, #dot, #minus{
+     color:purple;
+     font-size:vw}
+    </style>
+</head>
+<body>
+
+<div class="Allfather">    
+<div class="different">
+<div class="empty" class="reduceit" id="currentopr"></div>
+<div class="empty" class="reduceit" id="operator"></div>
+<div class="empty" class="reduceit" id="prevopr"></div>
+
+</div>
+<div class="empty" id="ans"></div>
+
+    <div class="container">
+ <div class="op" id="zero">0</div>
+ <div class="op" id="one">1</div>
+ <div class="op" id="two">2</div>
+ <div class="op" id="three">3</div>
+  <div class="op" id="four">4</div>
+   <div class="op" id="five">5</div>
+ <div class="op" id="six">6</div>
+  <div class="op" id="seven">7</div>
+  <div class="op" id="eight">8</div>
+  <div class="op" id="nine">9</div>
+  <div class="op" id="dot">.</div>
+<div class="op" id="plus">+</div>
+<div class="op" id="minus">-</div>
+<div class="op" id="times">*</div>
+<div class="op" id="divide">÷</div>
+<div class="op" id="equal">=</div>
+<div class="op" id="clear">DEL</div>
+<div class="op" id="clearAll">AC</div>
+</div>
+
+</div>
+
+
+
+<script>
+var reduceit=document.getElementsByClassName("reduceit");
+var one=document.getElementById("one");
+var two=document.getElementById("two");
+var three=document.getElementById("three");
+var four=document.getElementById("four");
+var five=document.getElementById("five");
+var six=document.getElementById("six");
+var seven=document.getElementById("seven");
+var eight=document.getElementById("eight");
+var currentop = document.getElementById("currentopr");
+var prevop =document.getElementById("prevopr");
+var ans=document.getElementById("ans");
+var dot=document.getElementById("dot");
+var times=document.getElementById("times");
+var plus=document.getElementById("plus");
+var minus=document.getElementById("minus");
+var divide=document.getElementById("divide");
+var clear=document.getElementById("clear");
+var clearAll=document.getElementById("clearAll");
+var equal=document.getElementById("equal");
+var empty = document.getElementsByClassName("empty");
+var operator=document.getElementById("operator");
+var current= [];
+var prev=[];
+var click="no"; 
+var change;
+var final;
+var jointcur;
+var n=0;
+
+
+            // OPERAND SECTION//
+            
+  function operand1(){
+let num = 1;
+ if (click=="yes") {
+  prev.push(num); prevop.appendChild(document.createTextNode(num));
+return;}
+
+   change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+   
+
+ function operand2(){
+let num = 2;
+ if (click=="yes") {
+  prev.push(num); prevop.appendChild(document.createTextNode(num));
+return;}
+
+   change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+ 
+ function operand3(){
+let num = 3;
+ if (click=="yes") {
+  prev.push(num);
+ prevop.appendChild(document.createTextNode(num));
+return;}
+
+change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+   
+ function operand4(){
+let num = 4;
+ if (click=="yes") {
+  prev.push(num); prevop.appendChild(document.createTextNode(num));
+return;}
+
+change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+ 
+ function operand5(){
+let num = 5;
+ if (click=="yes") {
+  prev.push(num);
+ prevop.appendChild(document.createTextNode(num));
+return;} 
+
+change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+
+ function operand6(){
+let num = 6;
+ if (click=="yes") {
+  prev.push(num); prevop.appendChild(document.createTextNode(num));
+return;}
+
+change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+ 
+  function operand7(){
+let num = 7;
+ if (click=="yes") {
+  prev.push(num);
+ prevop.appendChild(document.createTextNode(num));
+return;}
+
+change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+
+ function operand8(){
+let num = 8;
+ if (click=="yes") {
+  prev.push(num);
+ prevop.appendChild(document.createTextNode(num));
+return;}
+
+ change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+ 
+  function operand9(){
+let num = 9;
+ if (click=="yes") {
+  prev.push(num);
+ prevop.appendChild(document.createTextNode(num));
+return;}
+
+change= 999;
+   current.push(num); currentop.appendChild(document.createTextNode(num))}
+ 
+  function operand0(){
+let num = 0;
+ if (click=="yes") {
+ 
+  prev.push(num);
+   prevop.appendChild(document.createTextNode(num));
+return;}
+
+change= 999;
+current.push(num); currentop.appendChild(document.createTextNode(num))}
+ 
+ 
+/** so i was trying to create a var the gets changed yo a number after a number is clicked  and then check if the datatype var has been changed to**/
+ 
+ function decimal(){
+let num = ".";
+ if ((click=="yes") && (change>0)) {
+  prev.push(num);
+ prevop.appendChild(document.createTextNode(num));
+return;}
+
+
+   current.push(num);
+   
+currentop.appendChild(document.createTextNode(num));
+
+change=0;}
+
+ 
+ //-------------------------------------//
+   
+              // OPERATOR //
+
+var operations;
+
+ function multiple (){
+ if (current.length>0){
+     click="yes";
+change=0 //sets to zero so dot can't be click
+    operations="multi";
+operator.innerText="*";
+}
+ }
+
+ function division(){
+    if (current.length>0){
+    click="yes";
+    change=0;
+    operations="divid";
+operator.innerText="/";
+ }}
+
+ function addition (){
+ if (current.length>0){
+     click="yes";
+     change=0;
+   operations="add";
+operator.innerText="+";
+ }}
+ 
+function subtract (){
+ if (current.length>0){
+     click="yes";
+     change=0;
+ operations="sub";
+operator.innerText="-";
+ }}
+ 
+   
+      // OPERATIONS & ANSWER SECTION //
+
+ function result(){
+ if(prev.length>0){
+ 
+ 
+ switch (operations){
+ case "multi":
+ final= Number(current.join("") *         prev.join(""));
+ ans.innerText=" "; ans.appendChild(document.createTextNode(final)); break;
+ 
+ case "divid" :
+ final= Number(current.join("") / prev.join(""));
+ ans.innerText=" "; ans.appendChild(document.createTextNode(final));
+ break;
+ case "add": final= Number(Number(current.join("")) + Number(prev.join("")));
+ ans.innerText=" "; ans.appendChild(document.createTextNode(final));
+ break;
+ case "sub": final= Number(current.join("") - prev.join(""));
+ ans.innerText=" "; ans.appendChild(document.createTextNode(final));
+ break;
+  }
+ans.style.color="purple";
+
+}
+
+else{
+ans.innerText="Input Equation";
+ans.style.color="#ff6940";
+
+
+}}
+
+
+          // CLEAR SECTION//
+
+
+var AnsWipeCondition = typeof ans.innerText === " ";
+var PrevopWipeCondition = prev.length === 0;
+var CurrentopWipeCondition;
+var n = 0;
+
+function del() {
+    if (ans.innerText !== " ") {
+        ans.innerText = " ";
+    }
+
+    if (prevop.innerText !== " ") {
+     prev.pop(); // removes element from 
+        prevop.innerText = prev.join("");
+    }
+
+    if (operator.innerText !== " " && prev.length=== 0) {
+        operator.innerText = " ";
+        click = "no";
+    }
+
+    if (currentop.innerText !== " " && click == "no" && prev.length===0 ) {
+        current.pop();
+        currentop.innerText = current.join("");
+    }
+}
+
+function ac() {
+    current = [];
+    currentop.innerText = " ";
+    prev = [];
+    prevop.innerText = " ";
+    ans.innerText = " ";
+    operator.innerText = " ";
+    click = "no";
+}
+
+one.addEventListener("click", operand1)
+two.addEventListener("click", operand2)
+three.addEventListener("click", operand3)
+four.addEventListener("click", operand4)
+five.addEventListener("click", operand5)
+six.addEventListener("click", operand6)
+seven.addEventListener("click", operand7)
+eight.addEventListener("click", operand8)
+nine.addEventListener("click", operand9)
+zero.addEventListener("click", operand0)
+clear.addEventListener("click", del)
+clearAll.addEventListener("click", ac)
+
+dot.addEventListener("click", decimal)
+times.addEventListener("click", multiple)
+plus.addEventListener("click", addition)
+minus.addEventListener("click", subtract)
+divide.addEventListener("click", division)
+equal.addEventListener("click", result)
+</script>                   
+</body>
+</html>
