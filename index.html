@@ -2,274 +2,289 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Page title</title>
-  <style>
-  *{margin:0}
- canvas{ 
-     background-color:pink;
- }
- 
-#left, #down, #top, #right{
-   font-size:4vw;
-   font-weight:400;
-   height:5vh;
-   display:flex;
-   align-items:center;
-   color:#15ff4d;
-   background-color:#0042ff;
-   justify-content: center;
-   border:2px red solid}
-
-.top, .down{
-   display:flex;
-   align-items:center;
-   justify-content: center;
-   width:100vw;
-  
-}
-
-#top{margin-top:3px;
-     width:20%;}
-#down{margin-top:3px;
-      width:20%;}
-
-#left{float:left;
-      width:20vw;
-      margin-left:3rem;}
-      
-#right{float:right;
-      width:20vw;
-      margin-right:3rem}
-
-.goal{display:flex;
-      justify-content:center;
-      align-items:center;}
-      
-#score, #reset{background-color:#f82bff;
-      font-size:4vw;
-      margin:2px;
-      width:20%;
-      font-weight:600;
-      color:#ff9340;
-      display:flex;
-      justify-content:center;
-      align-items:center;}
-
-#reset{width:20%;
-       color:#ff0049;
-       background-color:#aadfff;
-       border-radius:50%;
-       margin:5px;
-       height:10vh;
-       }
-
-  </style>
+    <title>Snake Pro - Edwin Chigozie</title>
+    <style>
+        *{margin:0; padding:0; box-sizing:border-box;}
+        body {
+            background: linear-gradient(135deg, #0f0f23, #1a0033, #2d1b69);
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+            overflow: hidden;
+        }
+        canvas { 
+            background: linear-gradient(45deg, #ffdd80, #ffab62);
+            display: block;
+            box-shadow: 0 0 50px rgba(255, 221, 128, 0.5);
+            border-radius: 15px;
+            margin: 10px auto;
+        }
+        #left, #down, #top, #right{
+            font-size: clamp(18px, 4vw, 28px);
+            font-weight: 700;
+            height: 8vh;
+            display: flex;
+            align-items: center;
+            color: #00ff88;
+            background: linear-gradient(145deg, #0042ff, #0066ff);
+            justify-content: center;
+            border: 3px solid #00ff88;
+            box-shadow: 0 8px 25px rgba(0, 66, 255, 0.4);
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px #00ff88;
+        }
+        #left:hover, #down:hover, #top:hover, #right:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.6);
+            background: linear-gradient(145deg, #0066ff, #00aaff);
+        }
+        .top, .down{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+        }
+        #top { margin-top: 10px; width: 22%; }
+        #down { margin-top: 10px; width: 22%; }
+        #left { width: 22vw; margin-left: 4rem; }
+        #right { width: 22vw; margin-right: 4rem; }
+        .goal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            background: rgba(0, 66, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        #score {
+            background: linear-gradient(145deg, #f82bff, #ff4dff);
+            font-size: clamp(20px, 4vw, 32px);
+            margin: 5px;
+            width: 22%;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(248, 43, 255, 0.5);
+            text-shadow: 0 0 10px #ff4dff;
+        }
+        #reset {
+            width: 12%;
+            color: #fff;
+            background: linear-gradient(145deg, #ff0049, #ff3366);
+            border-radius: 50%;
+            margin: 5px;
+            height: 12vh;
+            font-size: clamp(14px, 3vw, 20px);
+            font-weight: 800;
+            box-shadow: 0 8px 25px rgba(255, 0, 73, 0.5);
+            text-shadow: 0 0 10px #ff3366;
+        }
+        #reset:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 0, 73, 0.7);
+        }
+        .portfolio-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: #00ff88;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.2);
+            border-radius: 25px;
+            border: 2px solid #00ff88;
+            transition: all 0.3s ease;
+        }
+        .portfolio-link:hover {
+            background: #00ff88;
+            color: #0f0f23;
+        }
+    </style>
 </head>
 <body>
-
-<canvas id="canvas"></canvas>
-<div class="goal">
+    <canvas id="canvas"></canvas>
+    <div class="goal">
+        <div id="score">0</div>
+    </div>
+    <div class="top">
+        <div id="top">↑ TOP</div>
+    </div>
+    <div id="left">← LEFT</div>
+    <div id="right">RIGHT →</div>
+    <div class="down">
+        <div id="down">DOWN ↓</div>
+    </div>
+    <a href="https://maxyl19.github.io/Portfolio-/" class="portfolio-link" target="_blank">Portfolio ↗</a>
     
-<div id="score">0</div></div>
-<div class="top"><div id="top">top</div></div>
-<div id="left">left</div>
-<div id="right">right</div>
-<div class="down"><div id="down">down</div></div>
-<audio src="neon_retro.m4a" id="au"></audio>
-<div id="reset">reset</div>
-<script>
- var can=document.querySelector("canvas");
-var left=document.getElementById("left");
-var right=document.getElementById("right");
-var down=document.getElementById("down");
-var up=document.getElementById("top");
-var score=document.getElementById("score");
-var au=document.getElementById("au");
-var reset=document.getElementById("reset");
-var c=can.getContext("2d");
-var d="right";
-var valid=true;
-var speed=300;
-var box=20;
-var newhead;
-var fran;
-var check;
-var stop;
-var colide=false;
-var t=false;
-var snakex;
-var snakey;
-var game="GameOver!!!"
-let gameover=new Audio("./gameover.m4a");
-let s=0;
-let quit="em"; 
-var canw=
-can.width=parseInt(window.innerWidth/box)*box;
-var canh=
-can.height=parseInt(window.innerHeight/40)*box;
-let lis="n";
-var food=[box, box];
+    <script>
+        var can = document.querySelector("canvas");
+        var left = document.getElementById("left");
+        var right = document.getElementById("right");
+        var down = document.getElementById("down");
+        var up = document.getElementById("top");
+        var score = document.getElementById("score");
+        var reset = document.getElementById("reset");
+        var c = can.getContext("2d");
+        var d = "right";
+        var valid = true;
+        var speed = 200; // Slightly faster start
+        var box = 20;
+        var newhead;
+        var fran;
+        var check;
+        var stop;
+        var colide = false;
+        var t = false;
+        var snakex;
+        var snakey;
+        var game = "GAME OVER!!!"
+        let s = 0;
+        let quit = "em"; 
+        var canw = can.width = parseInt(window.innerWidth / box) * box;
+        var canh = can.height = parseInt(window.innerHeight / 40) * box;
+        let food = [box, box];
+        let snake = [{x: 1 * box, y: 2 * box}, {x: 2 * box, y: 2 * box}];
+        var fx = 40;
+        var fy = 40;
+        var inc = 0;
 
+        function rerun() {
+            if (quit == "quit") {
+                inc++;
+                if (inc < 2) {
+                    c.fillStyle = "rgba(255, 0, 73, 0.9)";
+                    c.shadowColor = "#ff3366";
+                    c.shadowBlur = 20;
+                    c.textAlign = "center";
+                    c.font = "bold 5vw Arial";
+                    c.fillText(game, canw / 2, canh / 2);
+                    c.shadowBlur = 0;
+                }
+                clearInterval(stop);
+                return;
+            }
 
-let snake=  [{x:1*box, y:2*box},
-  {x:2*box, y:2*box}];
+            check = false;
+            // Enhanced gradient background
+            var gradient = c.createLinearGradient(0, 0, canw, canh);
+            gradient.addColorStop(0, "#ffdd80");
+            gradient.addColorStop(0.5, "#ffab62");
+            gradient.addColorStop(1, "#ff892b");
+            c.fillStyle = gradient;
+            c.fillRect(0, 0, canw, canh);
 
+            snakex = snake[0].x;
+            snakey = snake[0].y;
 
-var fx=40;
-var fy=40;
-var inc=0;
+            if (d === "right") { if (quit != "quit") { snakex += box; } }
+            if (d === "left") { if (quit != "quit") { snakex -= box; } }
+            if (d === "top") { if (quit != "quit") { snakey -= box; } }
+            if (d === "down") { if (quit != "quit") { snakey += box; } }
 
-function rerun(){
+            for (i = 0; i < snake.length; i++) {
+                c.shadowColor = i === 0 ? "#002dff" : "#ff892b";
+                c.shadowBlur = 15;
+                c.fillStyle = i == 0 ? "#002dff" : "#ff892b";
+                c.strokeStyle = "rgba(255, 255, 255, 0.8)";
+                c.lineWidth = 2;
+                c.strokeRect(snake[i].x, snake[i].y, box, box);
+                c.fillRect(snake[i].x, snake[i].y, box, box);
+                c.shadowBlur = 0;
+            }
 
+            newhead = { x: snakex, y: snakey }
+            snake.unshift(newhead);
 
-             //  TO STOP GAME
-         
-if(quit=="quit"){
-   inc++;
-   au.pause();
-   if(inc<2){
-   c.display="flex";
-   c.textAlign="center";
-   c.justifyContent="center";
-   c.fillStyle="red";
-   c.font="60px red";
-   c.fillText(game, canw/2, canh/2);}
-   clearInterval(stop);
-   return;}
-   
-  
-  
-check=false;
-c.fillStyle="#ffdd80";     //drawing canvas
-c.fillRect(0,0,canw,canh);
+            valid = true;
+            while (valid) {
+                fran = parseInt(Math.random() * (12 - 0 + 1) + 1);
+                valid = false;
+                for (i = 1; i < snake.length; i++) {
+                    if ((snake[i].x == fx) && (snake[i].y == fy)) {
+                        fx = food[0] * fran;
+                        fy = food[1] * fran;
+                        valid = true;
+                    }
+                }
+            }
 
+            if ((newhead.x === fx) && (newhead.y === fy)) {
+                fx = food[0] * fran;
+                fy = food[1] * fran;
+                c.shadowColor = "#ffff00";
+                c.shadowBlur = 25;
+                c.fillStyle = "#ff2b4a";
+                c.strokeStyle = "#ffff00";
+                c.lineWidth = 3;
+                c.strokeRect(fx, fy, box, box);
+                c.fillRect(fx, fy, box, box);
+                c.shadowBlur = 0;
+                s++;
+                score.innerText = s;
+                colide = true;
+                speed /= 1.15; // Slightly more aggressive speed increase
+                clearInterval(stop);
+                stop = setInterval(rerun, speed);
+                t = true
+            } else {
+                snake.pop()
+            }
 
-snakex= snake[0].x;
-snakey= snake[0].y;
+            if ((newhead.x < 0) || (newhead.y < 0) || (newhead.x >= canw) || (newhead.y >= canh)) {
+                quit = "quit"
+            }
 
+            c.shadowColor = "#ffff00";
+            c.shadowBlur = 20;
+            c.fillStyle = "#ff2b4a";
+            c.strokeStyle = "#ffff00";
+            c.lineWidth = 2;
+            c.strokeRect(fx, fy, box, box);
+            c.fillRect(fx, fy, box, box);
+            c.shadowBlur = 0;
 
+            for (i = 1; i < snake.length; i++) {
+                if ((newhead.x == snake[i].x) && (newhead.y == snake[i].y)) {
+                    quit = "quit";
+                }
+            }
+        }
 
-               //DIRECTIONS
-if(d==="right"){if(quit!="quit"){snakex += box;}}
-if(d==="left"){if(quit!="quit"){snakex -= box;}}
-if(d==="top"){if(quit!="quit"){snakey -= box;}}
-if(d==="down"){if(quit!="quit"){snakey += box;}}
+        stop = setInterval(rerun, speed);
 
- 
-for (i=0; i<snake.length; i++){
-  c.fillStyle="#ff892b";  //body
-  c.strokeStyle="purple";
-   if(i==0){c.fillStyle="#002dff";}
-  c.strokeRect(snake[i].x, snake[i].y,             box,box);
-  c.fillRect(snake[i].x, snake[i].y, box,box);
-}
+        function side(arr) {
+            d = arr;
+        }
 
+        function rst() {
+            if (quit == "quit") {
+                clearInterval(stop);
+                c.fillStyle = gradient;
+                c.fillRect(0, 0, canw, canh);
+                quit = "";
+                snake = [{x: 1 * box, y: 2 * box}, {x: 2 * box, y: 2 * box}];
+                d = "right";
+                speed = 200;
+                stop = setInterval(rerun, speed);
+            }
+        }
 
+        reset.addEventListener("click", rst);
+        left.addEventListener("click", () => { if (d != "right") { side("left") } });
+        right.addEventListener("click", () => { if (d != "left") { side("right") } });
+        down.addEventListener("click", () => { if (d != "top") { side("down") } });
+        up.addEventListener("click", () => { if (d != "down") { side("top") } });
 
-              // NEW HEAD
-newhead={
-  x:snakex,
-  y:snakey}  
-snake.unshift(newhead);
-  
-
- //CHANGE FOOD POSITION IF IT GENS ON SNAKE
-   
-valid=true;
- while (valid){
-   fran=parseInt(Math.random()*(12-0+1)+1);
-      valid=false;
-for (i=1; i<snake.length; i++){
-  if((snake[i].x==fx)&&(snake[i].y==fy)){
-    fx=food[0]*fran;
-    fy=food[1]*fran;
-    valid=true;}}}
-        
-        
-          //COLLISION TO FOOD
-         
-if ((newhead.x===fx)&&(newhead.y===fy)){
- fx=food[0]*fran;
- fy=food[1]*fran;  
-  c.fillStyle="#ff2b4a";
-  c.strokeStyle="yellow"; 
-  c.strokeRect(fx, fy,box,box);
-  c.fillRect(fx, fy,box,box);
-  s++;
-  score.innerText=s;
-  colide=true;
-  speed/=1.2;
-  clearInterval(stop);
-  stop=setInterval(rerun,speed);
-  t=true}
-  
- 
-  else{snake.pop()}
-  
-          //COLLISION WITH WALL
-  
-if((newhead.x<0)||(newhead.y<0) || (newhead.x>=canw) || (newhead.y>=canh)){
-    quit="quit"}
-
-
-
-                //FOOD
- c.fillStyle="#ff2b4a";
- c.strokeStyle="yellow";
- c.strokeRect(fx, fy,box,box);
- c.fillRect(fx, fy,box,box);
- 
- 
-     //COLLISON OF NEWHEAD AND LENGTH 
-    
-for(i=1; i<snake.length; i++){
-   if((newhead.x==snake[i].x) &&              (newhead.y==snake[i].y)){ 
-   quit="quit"; }}      
-}
- 
-
- stop=setInterval(rerun,speed);
-
-function side(arr){
-    d=arr;
-    }
-
-
-
-function rst(){
-   if(quit=="quit"){
-    clearInterval(stop);
-    c.fillStyle="#ffdd80";
-    c.fillRect(0,0, canw,canh);
-    quit="";
-    snake=[{x:1*box, y:2*box}, 
-    {x:2*box,                          
-    y:2*box}];
-    d="right";
-     c.fillText="GAMEOVER";
-    c.font="10px red";
-    speed=300;
-    stop=setInterval(rerun, speed);
-   }
-}
-
-reset.addEventListener("click",rst);
- left.addEventListener("click", ()=>{
-if(d!="right"){side("left")}});
-
-right.addEventListener("click", ()=>{
-if(d!="left"){side("right")}});
-
-down.addEventListener("click", ()=>{
-if(d!="top"){side("down")}}); 
- 
-
-                 
-    
-up.addEventListener("click", ()=>{
-if(d!="down"){side("top")}}); 
-                 
-                                                                                                                                  
-</script>
+        // Responsive resize
+        window.addEventListener('resize', () => {
+            canw = can.width = parseInt(window.innerWidth / box) * box;
+            canh = can.height = parseInt(window.innerHeight / 40) * box;
+        });
+    </script>
 </body>
 </html>
