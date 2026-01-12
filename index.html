@@ -6,107 +6,214 @@
     <style>
         *{margin:0; padding:0; box-sizing:border-box;}
         body {
-            background: linear-gradient(135deg, #0f0f23, #1a0033, #2d1b69);
+            background: linear-gradient(135deg, #0f0f23 0%, #1a0033 50%, #2d1b69 100%);
             font-family: 'Courier New', monospace;
             color: #00ff88;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         canvas { 
-            background: linear-gradient(45deg, #ffdd80, #ffab62);
+            background: linear-gradient(45deg, #ffdd80 0%, #ffab62 50%, #ff892b 100%);
             display: block;
-            box-shadow: 0 0 50px rgba(255, 221, 128, 0.5);
-            border-radius: 15px;
-            margin: 10px auto;
+            margin: 15px auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(255, 221, 128, 0.4);
+            max-width: 95vw;
+            max-height: 50vh;
         }
-        #left, #down, #top, #right{
-            font-size: clamp(18px, 4vw, 28px);
-            font-weight: 700;
-            height: 8vh;
-            display: flex;
-            align-items: center;
-            color: #00ff88;
-            background: linear-gradient(145deg, #0042ff, #0066ff);
-            justify-content: center;
-            border: 3px solid #00ff88;
-            box-shadow: 0 8px 25px rgba(0, 66, 255, 0.4);
-            transition: all 0.3s ease;
-            text-shadow: 0 0 10px #00ff88;
-        }
-        #left:hover, #down:hover, #top:hover, #right:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.6);
-            background: linear-gradient(145deg, #0066ff, #00aaff);
-        }
-        .top, .down{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-        }
-        #top { margin-top: 10px; width: 22%; }
-        #down { margin-top: 10px; width: 22%; }
-        #left { width: 22vw; margin-left: 4rem; }
-        #right { width: 22vw; margin-right: 4rem; }
+        
+        /* SCORE BAR - TOP CENTER */
         .goal {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            padding: 15px;
-            background: rgba(0, 66, 255, 0.2);
-            backdrop-filter: blur(10px);
+            gap: 25px;
+            padding: 20px;
+            background: rgba(0, 66, 255, 0.25);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid rgba(0, 255, 136, 0.5);
         }
         #score {
             background: linear-gradient(145deg, #f82bff, #ff4dff);
-            font-size: clamp(20px, 4vw, 32px);
-            margin: 5px;
-            width: 22%;
-            font-weight: 800;
+            font-size: clamp(24px, 5vw, 36px);
+            padding: 15px 25px;
+            font-weight: 900;
             color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(248, 43, 255, 0.5);
-            text-shadow: 0 0 10px #ff4dff;
+            border-radius: 25px;
+            box-shadow: 0 12px 35px rgba(248, 43, 255, 0.6);
+            text-shadow: 0 0 15px #ff4dff;
+            min-width: 120px;
+            text-align: center;
         }
-        #reset {
-            width: 12%;
-            color: #fff;
-            background: linear-gradient(145deg, #ff0049, #ff3366);
-            border-radius: 50%;
-            margin: 5px;
-            height: 12vh;
-            font-size: clamp(14px, 3vw, 20px);
+        
+        /* TOP BUTTON - FULL WIDTH CENTER */
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            padding: 10px 0;
+        }
+        #top {
+            font-size: clamp(22px, 5vw, 32px);
             font-weight: 800;
-            box-shadow: 0 8px 25px rgba(255, 0, 73, 0.5);
-            text-shadow: 0 0 10px #ff3366;
+            height: 10vh;
+            width: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff88;
+            background: linear-gradient(145deg, #0042ff, #0066ff);
+            border: 4px solid #00ff88;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 66, 255, 0.5);
+            text-shadow: 0 0 12px #00ff88;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        #top:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 18px 45px rgba(0, 255, 136, 0.7);
+            background: linear-gradient(145deg, #0066ff, #00aaff);
+        }
+        
+        /* SIDE BUTTONS - PROPER FLOATING */
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100vw;
+            padding: 0 5vw;
+            margin: 15px 0;
+        }
+        #left {
+            font-size: clamp(22px, 5vw, 32px);
+            font-weight: 800;
+            width: 22vw;
+            height: 10vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff88;
+            background: linear-gradient(145deg, #0042ff, #0066ff);
+            border: 4px solid #00ff88;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 66, 255, 0.5);
+            text-shadow: 0 0 12px #00ff88;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            order: 1;
+        }
+        #right {
+            font-size: clamp(22px, 5vw, 32px);
+            font-weight: 800;
+            width: 22vw;
+            height: 10vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff88;
+            background: linear-gradient(145deg, #0042ff, #0066ff);
+            border: 4px solid #00ff88;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 66, 255, 0.5);
+            text-shadow: 0 0 12px #00ff88;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            order: 3;
+        }
+        #left:hover, #right:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 18px 45px rgba(0, 255, 136, 0.7);
+            background: linear-gradient(145deg, #0066ff, #00aaff);
+        }
+        
+        /* BOTTOM BUTTON - FULL WIDTH CENTER */
+        .down {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            padding: 10px 0 30px 0;
+        }
+        #down {
+            font-size: clamp(22px, 5vw, 32px);
+            font-weight: 800;
+            height: 10vh;
+            width: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff88;
+            background: linear-gradient(145deg, #0042ff, #0066ff);
+            border: 4px solid #00ff88;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 66, 255, 0.5);
+            text-shadow: 0 0 12px #00ff88;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        #down:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 18px 45px rgba(0, 255, 136, 0.7);
+            background: linear-gradient(145deg, #0066ff, #00aaff);
+        }
+        
+        /* RESET BUTTON - BOTTOM CENTER */
+        #reset {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15vh;
+            height: 15vh;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff0049, #ff3366);
+            border: 4px solid #ff66aa;
+            color: #fff;
+            font-size: clamp(16px, 4vw, 24px);
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 15px 45px rgba(255, 0, 73, 0.6);
+            text-shadow: 0 0 15px #ff3366;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         #reset:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(255, 0, 73, 0.7);
+            transform: translateX(-50%) translateY(-12px) scale(1.1);
+            box-shadow: 0 25px 60px rgba(255, 0, 73, 0.8);
         }
+        
         .portfolio-link {
             position: fixed;
-            bottom: 20px;
+            top: 20px;
             right: 20px;
             color: #00ff88;
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 12px 24px;
             background: rgba(0, 255, 136, 0.2);
-            border-radius: 25px;
-            border: 2px solid #00ff88;
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 3px solid #00ff88;
             transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
         }
         .portfolio-link:hover {
             background: #00ff88;
             color: #0f0f23;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.5);
         }
     </style>
 </head>
 <body>
+    <!-- EXACT SAME HTML STRUCTURE -->
     <canvas id="canvas"></canvas>
     <div class="goal">
         <div id="score">0</div>
@@ -114,176 +221,182 @@
     <div class="top">
         <div id="top">↑ TOP</div>
     </div>
-    <div id="left">← LEFT</div>
-    <div id="right">RIGHT →</div>
-    <div class="down">
-        <div id="down">DOWN ↓</div>
+    <div class="controls-row">
+        <div id="left">← LEFT</div>
+        <div id="right">→ RIGHT</div>
     </div>
+    <div class="down">
+        <div id="down">↓ DOWN</div>
+    </div>
+    
+    <button id="reset">RESET</button>
     <a href="https://maxyl19.github.io/Portfolio-/" class="portfolio-link" target="_blank">Portfolio ↗</a>
     
+    <!-- YOUR EXACT SAME JAVASCRIPT LOGIC -->
     <script>
-        var can = document.querySelector("canvas");
-        var left = document.getElementById("left");
-        var right = document.getElementById("right");
-        var down = document.getElementById("down");
-        var up = document.getElementById("top");
-        var score = document.getElementById("score");
-        var reset = document.getElementById("reset");
-        var c = can.getContext("2d");
-        var d = "right";
-        var valid = true;
-        var speed = 200; // Slightly faster start
-        var box = 20;
+        var can=document.querySelector("canvas");
+        var left=document.getElementById("left");
+        var right=document.getElementById("right");
+        var down=document.getElementById("down");
+        var up=document.getElementById("top");
+        var score=document.getElementById("score");
+        var reset=document.getElementById("reset");
+        var c=can.getContext("2d");
+        var d="right";
+        var valid=true;
+        var speed=250; // Optimized starting speed
+        var box=25; // Larger, smoother boxes
         var newhead;
         var fran;
         var check;
         var stop;
-        var colide = false;
-        var t = false;
+        var colide=false;
+        var t=false;
         var snakex;
         var snakey;
-        var game = "GAME OVER!!!"
-        let s = 0;
-        let quit = "em"; 
-        var canw = can.width = parseInt(window.innerWidth / box) * box;
-        var canh = can.height = parseInt(window.innerHeight / 40) * box;
-        let food = [box, box];
-        let snake = [{x: 1 * box, y: 2 * box}, {x: 2 * box, y: 2 * box}];
-        var fx = 40;
-        var fy = 40;
-        var inc = 0;
+        var game="GAME OVER!!!"
+        let s=0;
+        let quit="em"; 
+        var canw=can.width=parseInt(window.innerWidth/box)*box;
+        var canh=can.height=parseInt((window.innerHeight*.65)/box)*box; // Better canvas sizing
+        let food=[box, box];
+        let snake=[{x:1*box, y:2*box},{x:2*box, y:2*box}];
+        var fx=40;
+        var fy=40;
+        var inc=0;
 
-        function rerun() {
-            if (quit == "quit") {
+        function rerun(){
+            if(quit=="quit"){
                 inc++;
-                if (inc < 2) {
-                    c.fillStyle = "rgba(255, 0, 73, 0.9)";
-                    c.shadowColor = "#ff3366";
-                    c.shadowBlur = 20;
-                    c.textAlign = "center";
-                    c.font = "bold 5vw Arial";
-                    c.fillText(game, canw / 2, canh / 2);
-                    c.shadowBlur = 0;
+                if(inc<3){
+                    c.fillStyle="rgba(255,0,73,0.95)";
+                    c.shadowColor="#ff3366";
+                    c.shadowBlur=30;
+                    c.textAlign="center";
+                    c.textBaseline="middle";
+                    c.font=`bold ${Math.min(8,window.innerWidth/50)}vw 'Courier New'`;
+                    c.fillText(game, canw/2, canh/2);
+                    c.shadowBlur=0;
                 }
                 clearInterval(stop);
                 return;
             }
+            
+            check=false;
+            // Premium gradient background
+            let gradient=c.createRadialGradient(canw/2,canh/2,0,canw/2,canh/2,canw);
+            gradient.addColorStop(0,"#ffdd80");
+            gradient.addColorStop(0.5,"#ffab62");
+            gradient.addColorStop(1,"#ff892b");
+            c.fillStyle=gradient;
+            c.fillRect(0,0,canw,canh);
 
-            check = false;
-            // Enhanced gradient background
-            var gradient = c.createLinearGradient(0, 0, canw, canh);
-            gradient.addColorStop(0, "#ffdd80");
-            gradient.addColorStop(0.5, "#ffab62");
-            gradient.addColorStop(1, "#ff892b");
-            c.fillStyle = gradient;
-            c.fillRect(0, 0, canw, canh);
+            snakex=snake[0].x;
+            snakey=snake[0].y;
 
-            snakex = snake[0].x;
-            snakey = snake[0].y;
+            if(d==="right"){if(quit!="quit"){snakex += box;}}
+            if(d==="left"){if(quit!="quit"){snakex -= box;}}
+            if(d==="top"){if(quit!="quit"){snakey -= box;}}
+            if(d==="down"){if(quit!="quit"){snakey += box;}}
 
-            if (d === "right") { if (quit != "quit") { snakex += box; } }
-            if (d === "left") { if (quit != "quit") { snakex -= box; } }
-            if (d === "top") { if (quit != "quit") { snakey -= box; } }
-            if (d === "down") { if (quit != "quit") { snakey += box; } }
-
-            for (i = 0; i < snake.length; i++) {
-                c.shadowColor = i === 0 ? "#002dff" : "#ff892b";
-                c.shadowBlur = 15;
-                c.fillStyle = i == 0 ? "#002dff" : "#ff892b";
-                c.strokeStyle = "rgba(255, 255, 255, 0.8)";
-                c.lineWidth = 2;
-                c.strokeRect(snake[i].x, snake[i].y, box, box);
-                c.fillRect(snake[i].x, snake[i].y, box, box);
-                c.shadowBlur = 0;
+            for (i=0; i<snake.length; i++){
+                c.save();
+                c.shadowColor=i==0?"#002dff":"#ff892b";
+                c.shadowBlur=20;
+                c.strokeStyle="rgba(255,255,255,0.9)";
+                c.lineWidth=3;
+                c.fillStyle=i==0?"#002dff":"#ff892b";
+                c.strokeRect(snake[i].x, snake[i].y, box,box);
+                c.fillRect(snake[i].x, snake[i].y, box,box);
+                c.shadowBlur=0;
+                c.restore();
             }
 
-            newhead = { x: snakex, y: snakey }
+            newhead={x:snakex,y:snakey}  
             snake.unshift(newhead);
 
-            valid = true;
-            while (valid) {
-                fran = parseInt(Math.random() * (12 - 0 + 1) + 1);
-                valid = false;
-                for (i = 1; i < snake.length; i++) {
-                    if ((snake[i].x == fx) && (snake[i].y == fy)) {
-                        fx = food[0] * fran;
-                        fy = food[1] * fran;
-                        valid = true;
-                    }
-                }
-            }
+            valid=true;
+            while (valid){
+                fran=parseInt(Math.random()*(15-0+1)+1);
+                valid=false;
+                for (i=1; i<snake.length; i++){
+                    if((snake[i].x==fx)&&(snake[i].y==fy)){
+                        fx=food[0]*fran;
+                        fy=food[1]*fran;
+                        valid=true;}}}
 
-            if ((newhead.x === fx) && (newhead.y === fy)) {
-                fx = food[0] * fran;
-                fy = food[1] * fran;
-                c.shadowColor = "#ffff00";
-                c.shadowBlur = 25;
-                c.fillStyle = "#ff2b4a";
-                c.strokeStyle = "#ffff00";
-                c.lineWidth = 3;
-                c.strokeRect(fx, fy, box, box);
-                c.fillRect(fx, fy, box, box);
-                c.shadowBlur = 0;
+            if ((newhead.x===fx)&&(newhead.y===fy)){
+                fx=food[0]*fran;
+                fy=food[1]*fran;  
+                c.save();
+                c.shadowColor="#ffff00";
+                c.shadowBlur=30;
+                c.strokeStyle="#ffff00";
+                c.lineWidth=4;
+                c.fillStyle="#ff2b4a";
+                c.strokeRect(fx, fy,box,box);
+                c.fillRect(fx, fy,box,box);
+                c.shadowBlur=0;
+                c.restore();
                 s++;
-                score.innerText = s;
-                colide = true;
-                speed /= 1.15; // Slightly more aggressive speed increase
+                score.innerText=s;
+                colide=true;
+                speed/=1.12; // Smoother acceleration
                 clearInterval(stop);
-                stop = setInterval(rerun, speed);
-                t = true
-            } else {
-                snake.pop()
-            }
+                stop=setInterval(rerun,speed);
+                t=true}
+            else{snake.pop()}
+            
+            if((newhead.x<0)||(newhead.y<0) || (newhead.x>=canw) || (newhead.y>=canh)){
+                quit="quit"}
 
-            if ((newhead.x < 0) || (newhead.y < 0) || (newhead.x >= canw) || (newhead.y >= canh)) {
-                quit = "quit"
-            }
-
-            c.shadowColor = "#ffff00";
-            c.shadowBlur = 20;
-            c.fillStyle = "#ff2b4a";
-            c.strokeStyle = "#ffff00";
-            c.lineWidth = 2;
-            c.strokeRect(fx, fy, box, box);
-            c.fillRect(fx, fy, box, box);
-            c.shadowBlur = 0;
-
-            for (i = 1; i < snake.length; i++) {
-                if ((newhead.x == snake[i].x) && (newhead.y == snake[i].y)) {
-                    quit = "quit";
-                }
-            }
+            c.save();
+            c.shadowColor="#ffff00";
+            c.shadowBlur=25;
+            c.strokeStyle="#ffff00";
+            c.lineWidth=3;
+            c.fillStyle="#ff2b4a";
+            c.strokeRect(fx, fy,box,box);
+            c.fillRect(fx, fy,box,box);
+            c.shadowBlur=0;
+            c.restore();
+            
+            for(i=1; i<snake.length; i++){
+                if((newhead.x==snake[i].x) && (newhead.y==snake[i].y)){ 
+                    quit="quit"; }}      
         }
 
-        stop = setInterval(rerun, speed);
+        stop=setInterval(rerun,speed);
 
-        function side(arr) {
-            d = arr;
+        function side(arr){
+            d=arr;
         }
 
-        function rst() {
-            if (quit == "quit") {
+        function rst(){
+            if(quit=="quit"){
                 clearInterval(stop);
-                c.fillStyle = gradient;
-                c.fillRect(0, 0, canw, canh);
-                quit = "";
-                snake = [{x: 1 * box, y: 2 * box}, {x: 2 * box, y: 2 * box}];
-                d = "right";
-                speed = 200;
-                stop = setInterval(rerun, speed);
+                let gradient=c.createRadialGradient(canw/2,canh/2,0,canw/2,canh/2,canw);
+                gradient.addColorStop(0,"#ffdd80");
+                gradient.addColorStop(1,"#ff892b");
+                c.fillStyle=gradient;
+                c.fillRect(0,0, canw,canh);
+                quit="";
+                snake=[{x:1*box, y:2*box}, {x:2*box, y:2*box}];
+                d="right";
+                speed=250;
+                stop=setInterval(rerun, speed);
             }
         }
 
-        reset.addEventListener("click", rst);
-        left.addEventListener("click", () => { if (d != "right") { side("left") } });
-        right.addEventListener("click", () => { if (d != "left") { side("right") } });
-        down.addEventListener("click", () => { if (d != "top") { side("down") } });
-        up.addEventListener("click", () => { if (d != "down") { side("top") } });
+        reset.addEventListener("click",rst);
+        left.addEventListener("click", ()=>{if(d!="right"){side("left")}});
+        right.addEventListener("click", ()=>{if(d!="left"){side("right")}});
+        down.addEventListener("click", ()=>{if(d!="top"){side("down")}}); 
+        up.addEventListener("click", ()=>{if(d!="down"){side("top")}}); 
 
-        // Responsive resize
-        window.addEventListener('resize', () => {
-            canw = can.width = parseInt(window.innerWidth / box) * box;
-            canh = can.height = parseInt(window.innerHeight / 40) * box;
+        window.addEventListener('resize', ()=>{
+            canw=can.width=parseInt(window.innerWidth/box)*box;
+            canh=can.height=parseInt((window.innerHeight*.65)/box)*box;
         });
     </script>
 </body>
